@@ -1,1 +1,4 @@
 .DS_Store
+.gitignore
+*.yaml
+postgres:14.0
