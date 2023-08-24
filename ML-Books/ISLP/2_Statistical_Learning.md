@@ -70,4 +70,20 @@ quantitative or qualitative / 양적인 성격의 변수가 있을 수 있고 �
 
 
 ## 2.2 Assessing Model Accuracy
+One of the key aims of this book is to introduce wide range of statistical learning methods. Why? In statistics, no one method dominates all others.    
+Selecting the best approach can be the most challenging parts of statistical learning. In this section, we discuss some of the most important concepts that arise in selecting a statistical learning method for a specific data set.
 
+
+### 2.2.1 Measuring the Quality of Fit
+Evaluation the performance of statistical learning method on a given data set = measure how well it's predictions match the observed data. And the most commonly used measure is the mean squared errer (MSE).    
+![img](./img/MSE.png)
+MSE(Mean Squared Error): 평균제곱오차, 실제값과 예측값 차이를 제곱하여 평균을 낸다. 즉, 예측값과 실제값 차이의 면적 평균과 같으며 특이값이 많이 존재할수록 값이 커진다.    
+
+By using MSE, we can make the model more accurately by using train data. But general, we don't care how well the method works on training dataset. We just interested in the accuracy of the prediction about unseen data.    
+For example, we make a model that predict stock's price, than we don't want to predict last stock's price. Just care about how well it will predict tomorrow's of next month's price. Also in clinical data, if we want to know how has diabetes.   
+The point to say is that there is no guarantee that the method with the lowest training MSE will also have the lowest test MSE. More fit to train dataset, it's MSE will be lower, but model flexibility will  decreases. Flextibility is important to a large test MSE. We always take care about overfitting problem.   
+
+In practice, one can usually compute the training MSE with relative ease, but estimating the test MSE is considerably more difficult because usually no test data are available.  Throughout this book, we discuss a variety of approaches that can be used in practice to estimate test MSE minimum point. One important method is cross-validation (Chapter 5), which is a crossmethod for estimating the test MSE using the training data.
+
+### 2.2.2 The Bias-Variance Trade-Off
+### 2.2.3 The Classification Setting
