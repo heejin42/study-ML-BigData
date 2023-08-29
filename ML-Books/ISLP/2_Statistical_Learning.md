@@ -86,4 +86,28 @@ The point to say is that there is no guarantee that the method with the lowest t
 In practice, one can usually compute the training MSE with relative ease, but estimating the test MSE is considerably more difficult because usually no test data are available.  Throughout this book, we discuss a variety of approaches that can be used in practice to estimate test MSE minimum point. One important method is cross-validation (Chapter 5), which is a crossmethod for estimating the test MSE using the training data.
 
 ### 2.2.2 The Bias-Variance Trade-Off
+수학적 증명은 이 책의 범위 밖이지만, 주어진 값 x0에 대한 테스트 MSE는 다음과 같이 계산 가능하다. 항상 세가지 값의 합으로 분해하며 fˆ(x0)의 분산, 제곱 편향, 에러값인 ε의 분산이다.
+   
+E(y<sub>0</sub> − fˆ(x<sub>0</sub>))<sup>2</sup> = Var(fˆ(x<sub>0</sub>)) + [ Bias(fˆ(x<sub>0</sub>))]<sup>2</sup> + Var(ε).   
+
+**E(y<sub>0</sub> − fˆ(x<sub>0</sub>))<sup>2</sup>** 는 예상되는 테스트 MSE로써 더 낮은 분산과 편향을 얻을 수 있도록 통계적 학습 메서드를 선택해야 한다. 분산(variance)와 편향(bias)가 통계적 학습에서 의미하는 바는 무엇일까? Variance은 fˆ 다른 학습 데이터를 사용할 경우에 f'가 바뀌는 정도를 가리킨다. 이상적인 상태는 학습 데이터가 모델의 함수에 큰 영향을 끼치지 않는 거지만 학습 데이터는 머신러닝 메소드에 반영되기 때문에 다른 학습 데이터 셋은 다른 f를 만들어낼 것이다. 메소드가 높은 분산을 가지고 있다면 작은 학습 데이터의 변화가 큰 변화를 만들 것이다. 그래서 대체로 유연한 메소드일수록 높은 분산을 가진다. 
+
+반면 편향(bias)는 실제로 매우 복잡한 문제를 비교적 간단하게 모델링하면서 나타나는 오류를 말한다. 예를 들어 선형회귀 함수는 Y를 x1, x2, x3, .. xp의 변수와의 관계로 나타냈다. 하지만 실제 현실에서의 문제는 간단한 선형 관계로 표현할 수 없다. 그래서 선형회귀의 성능은 f의 예측값의 편향이라고 말할 수 있다. 그리고 일반적으로 유연성이 높은 메서드가 낮은 편향을 가진다. 
+
+일반적으로 우리는 더 유연한 메서드를 사용할 수록 분산은 높아지고 편향은 낮아진다. 이 두 값들의 변화가 MSE의 증가와 감소를 결정한다. 그렇다면 유연성이 높은 메서드를 사용할수록 MSE가 감소한다고 기대할 수 있을까? 그렇다고 할 수는 없다!   
+편향이 낮아지면 분산은 커지기 때문에 어느 포인트부터는 MSE가 다시 증가한다. Consequently the test MSE declines substantially before experiencing a small increase as model flexibility increases.    
+
+**bias-variance trade-off**   
+The challenge lies in finding a method for which both the variance and the squared bias are low. This trade-off is one of the most important recurring themes of statistical learning. In Chapter 5 we discuss cross-validation, which is a way to estimate the test MSE using the training data.
+
 ### 2.2.3 The Classification Setting
+
+- **The Bayes Classifier**
+    Pr(Y = j|X = x0)의 conditional probability(조건부 확률)에 따르는 가장 간단한 classifier로, 가장 조건부 확률이 높은 class로 분류한다.         
+    각 클래스는 분류의 경계인 Bayes decision boundary에 따라 구분된다.    
+      
+    Bayes error rate =  1 − E *max<sub>j</sub>Pr(Y = j|X)    
+    Bayes error(베이즈 오류)란? 달성할 수 있는 가장 낮은 예측 오차로서, 축소할 수 없는 오류와 동일하다. 어떤 프로세스가 데이터를 생성하는지 정확히 알 수 있다면, 그 과정이 무작위적인 경우에도 오류가 발생할 것이다. 이것은 또한 "y는 본래 확률적이다"라는 의미도 있으며 가장 최상의 상태에서 뽑아낸 에러라고 이해하면 된다. 
+
+- **K-Nearest Neighbors**
+
