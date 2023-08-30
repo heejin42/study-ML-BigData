@@ -94,7 +94,7 @@ E(y<sub>0</sub> − fˆ(x<sub>0</sub>))<sup>2</sup> = Var(fˆ(x<sub>0</sub>)) + 
 
 반면 편향(bias)는 실제로 매우 복잡한 문제를 비교적 간단하게 모델링하면서 나타나는 오류를 말한다. 예를 들어 선형회귀 함수는 Y를 x1, x2, x3, .. xp의 변수와의 관계로 나타냈다. 하지만 실제 현실에서의 문제는 간단한 선형 관계로 표현할 수 없다. 그래서 선형회귀의 성능은 f의 예측값의 편향이라고 말할 수 있다. 그리고 일반적으로 유연성이 높은 메서드가 낮은 편향을 가진다. 
 
-일반적으로 우리는 더 유연한 메서드를 사용할 수록 분산은 높아지고 편향은 낮아진다. 이 두 값들의 변화가 MSE의 증가와 감소를 결정한다. 그렇다면 유연성이 높은 메서드를 사용할수록 MSE가 감소한다고 기대할 수 있을까? 그렇다고 할 수는 없다!   
+일반적으로 우리는 더 유연한 메서드를 사용할 수록 분산은 높아지고 편향은 낮아진다. 이 두 값들의 변화가 MSE의 증가와 감소를 결정한다. 그렇다면 유연성이 높은 메서드를 사용할수록 MSE가 감소한다고 기대할 수 있을까? 그렇다고 할 수는 없다!   `
 편향이 낮아지면 분산은 커지기 때문에 어느 포인트부터는 MSE가 다시 증가한다. Consequently the test MSE declines substantially before experiencing a small increase as model flexibility increases.    
 
 **bias-variance trade-off**   
@@ -105,9 +105,18 @@ The challenge lies in finding a method for which both the variance and the squar
 - **The Bayes Classifier**
     Pr(Y = j|X = x0)의 conditional probability(조건부 확률)에 따르는 가장 간단한 classifier로, 가장 조건부 확률이 높은 class로 분류한다.         
     각 클래스는 분류의 경계인 Bayes decision boundary에 따라 구분된다.    
-      
+
     Bayes error rate =  1 − E *max<sub>j</sub>Pr(Y = j|X)    
     Bayes error(베이즈 오류)란? 달성할 수 있는 가장 낮은 예측 오차로서, 축소할 수 없는 오류와 동일하다. 어떤 프로세스가 데이터를 생성하는지 정확히 알 수 있다면, 그 과정이 무작위적인 경우에도 오류가 발생할 것이다. 이것은 또한 "y는 본래 확률적이다"라는 의미도 있으며 가장 최상의 상태에서 뽑아낸 에러라고 이해하면 된다. 
 
 - **K-Nearest Neighbors**
-
+  실제 데이터는 X로 주어지는 구분되는 값을 모른다. 하지만 베이즈 분류기를 포함한 많은 접근 방식은 X가 주어지면 Y의 조건부 분포를 추정한 다음 주어진 관측값을 추정 확률이 갖아 높은 클래스로 분류하고자 한다. 그러한 접근 방식 중 하나로 K-최근접 이웃(KNN) 분류가 있다.   
+  어떤 값이 주어지면 주변 k개의 데이터를 살펴본 뒤, 더 많은 데이터가 포함되어 있는 범주로 분류하는 방식이다. k을 어떻게 정하냐에 따라 결과 값이 바뀔 수 있다. 그러므로 너무 작아도 커서도 안되며 일반적으로 홀수를 사용한다. 
+  ![img](./img/2_knn.png)
+  여기서 k의 값에 따라 error rate가 바뀌는데 train error rate와 test error rate는 큰 관계가 없다. 
+  ![img](./img/2_knn3.png)
+  위 사진은 k = 3 인 KNN 접근법을 표현한 것이다. 
+  ![img](./img/2_knn1100.png)
+  k=1로 한다면 train error rate는 0일 것이다. 하지만 test error rate는 매우 높을 것이다. 일반적으로 test error rate는 K 값에 따라 U-shape을 나타낸다. 
+  그래서 가장 낮은 error rate의 k 값을 선택하면 되는데 그 순간이 가장 유연성이 높고 overfitting이 적은 상태라고 생각할 수 있다. 
+  ![img](./img/2_knn_errorrate.png)
