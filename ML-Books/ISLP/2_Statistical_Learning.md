@@ -119,4 +119,4 @@ The challenge lies in finding a method for which both the variance and the squar
   ![img](./img/2_knn1100.png)
   k=1로 한다면 train error rate는 0일 것이다. 하지만 test error rate는 매우 높을 것이다. 일반적으로 test error rate는 K 값에 따라 U-shape을 나타낸다. 
   그래서 가장 낮은 error rate의 k 값을 선택하면 되는데 그 순간이 가장 유연성이 높고 overfitting이 적은 상태라고 생각할 수 있다. 
-  ![img](./img/2_knn_errorrate.png)
+  ![img](./img/2_knn_errorrate.png)s
