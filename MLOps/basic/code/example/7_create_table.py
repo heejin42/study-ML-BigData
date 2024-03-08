@@ -1,4 +1,6 @@
+# create_table.py
 import psycopg2
+
 
 def create_table(db_connect):
     create_table_query = """
@@ -11,23 +13,18 @@ def create_table(db_connect):
         petal_width float8,
         target int
     );"""
-
-    # cur = db_connect.cursor()
-    # cur.excute(create_table_query)
-    # db_connect.commit()
-
-    # cur.close()
-
+    print(create_table_query)
     with db_connect.cursor() as cur:
         cur.execute(create_table_query)
         db_connect.commit()
 
+
 if __name__ == "__main__":
     db_connect = psycopg2.connect(
-        user=user_name,
-        password=password,
+        user="targetuser",
+        password="targetpassword",
         host="localhost",
-        port=5432,
-        database="mydatabase",
+        port=5433,
+        database="targetdatabase",
     )
     create_table(db_connect)
