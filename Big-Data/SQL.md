@@ -114,6 +114,17 @@ MySQL은 Oracle에서 제공하는 오픈 소스 관계형 데이터베이스 �
 
 
 ### 뷰
+가상 테이블로, 다양한 query로 만들어진 데이터를 편리하고 빠르게 보여주고 액세스할 수 있도록 한다. 실제로 데이터를 저장하는 테이블이 아닌, 보여주는 데에 중점을 둔 기능이지만 뷰의 데이터를 수정할 경우 실제 데이터도 바꿔며, 실제 데이터를 수정하는 경우에는 뷰에도 반영된다. 사용법은 아래와 같다.
+```sql
+CREATE VIEW name AS 
+SELECT column1, column2, ... FROM table_name 조건문;
+
+CREATE VIEW seoul_members AS
+SELECT LastName, FirstName, Address, City, Country FROM members where City = '서울';
+
+DROP VIEW seoul_members;
+
+```
 
 
 ### 키
