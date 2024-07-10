@@ -112,7 +112,24 @@ MySQL은 Oracle에서 제공하는 오픈 소스 관계형 데이터베이스 �
     - access 방법 변경
     - index condition pushdown
 
+### key
+데이터베이스에서 key의 의미는 테이블에서 각 데이터를 분류하는 기준의 역할을 한다. 키의 종류를 하나씩 살펴보겠다.
+1. key(Index)
+ 가장 일반적인 key는 index로 데이터베이스의 각 데이터 색인을 의미한다. 중복과 null 모두 허용하지만 null은 비약적인 성능 저하를 가져오므로 인덱싱하지 않도록 한다.
+2. Primary key
+ 일반적인 key는 인덱스를 지칭하지만 DB 설계에서의 key는 보통 pk를 의미한다. NOT NULL & UNIQUE 옵션이 포함되며 하나 이상의 칼럼이 될수 있다. 만약 한 개의 칼럼으로 지정되어 있다면 그 칼럼의 데이터는 유일성이 보장되고, 여러개가 Pk로 지정되어 있다면, 그 key들의 조합에 대해 유일성이 보장된다. 검색 시에 색인 key가 되고 다른 테이블과 조인할 때도 기준 값으로 사용된다.
+3. Unique key
+ pk와 마찬가지로 중복성이 허용되지 않는 Uniqueness한 인덱스를 말하며, null에 대한 허용이 가능하다.
+4. Foreign key
+ Foreign Key 란 JOIN 등으로 다른 DB 와의 Relation 을 맺는 경우, 다른 테이블의 PK를 참조하는 Column 을 FK 라고 한다. 여기서 Foreign Key Relation 을 맺는 다는 의미는 논리적 뿐 아니라 물리적으로 다른 테이블과의 연결까지 맺는 경우를 말하며, 이 때 FK 는 제약조건(Constraint)으로의 역할을 한다. Foreign Key Restrict 옵션을 줄 수 있고 다음과 같은 옵션들이 있다.
 
+  - RESTRICT : FK 관계를 맺고 있는 데이터 ROW 의 변경(UPDATE) 또는 삭제(DELETE) 를 막는다.
+  - CASCADE : FK 관계를 맺을 때 가장 흔하게 접할 수 있는 옵션으로, FK 와 관계를 맺은 상대 PK 를 직접 연결해서 DELETE 또는 UPDATE 시, 상대 Key 값도 삭제 또는 갱신시킨다. 이 때에는 Trigger 가 발생하지 않으니 주의하자.
+  - SET NULL : 논리적 관계상 부모의 테이블, 즉 참조되는 테이블의 값이 변경 또는 삭제될 때 자식 테이블의 값을 NULL 로 만든다. UPDATE 쿼리로 인해 SET NULL 이 허용된 경우에만 동작한다.
+  - NO ACTION : RESTRICT 옵션과 동작이 같지만, 체크를 뒤로 미룬다.
+  - SET DEFAULT : 변경 또는 삭제 시에 값을 DEFAULT 값으로 세팅한다.
+
+ 
 ### 뷰
 가상 테이블로, 다양한 query로 만들어진 데이터를 편리하고 빠르게 보여주고 액세스할 수 있도록 한다. 실제로 데이터를 저장하는 테이블이 아닌, 보여주는 데에 중점을 둔 기능이지만 뷰의 데이터를 수정할 경우 실제 데이터도 바꿔며, 실제 데이터를 수정하는 경우에는 뷰에도 반영된다. 사용법은 아래와 같다.
 ```sql
@@ -125,9 +142,6 @@ SELECT LastName, FirstName, Address, City, Country FROM members where City = '�
 DROP VIEW seoul_members;
 
 ```
-
-
-### 키
 
 
 ### 트랜잭션
