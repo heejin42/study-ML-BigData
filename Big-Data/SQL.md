@@ -164,8 +164,36 @@ call mem;
 DROP PROCEDURE mem;
 ```
 
-### 트리거 
+### 트리거(Trigger)
+트리거란 특정 조건이 만족하면 저절로 실행되는 일종의 장치로 한번 설정해놓으면 계속 동작을 감시하고 있다가, 조건에 해당하는 동작이 수행되는 순간 실행된다. 기본 구조는 다음과 같다.
+```sql
+DELIMITER //
+    CREATE TRIGGER trigger_name
+    {BEFORE|AFTER} {INSERT|UPDATE|DELETE}
+    ON table_name FOR EACH ROW
+    BEGIN
+        --- 트리거 내용
+    END
+DELIMITER ;
+```
+여기서 BEFORE 혹은 AFTER는 트리거 작동 시점을 의미하며, 그 뒤에 조건 이벤트가 들어간다. 아래의 예시에서는 members 테이블이 있고, 그 테이블에서 데이터를 지울 때, 백업 테이블인 members_backup에 저장하는 트리거를 만든 것이다.
 
+```sql
+DELIMITER //
+CREATE TRIGGER backup_memger BEFORE DELETE
+ON members FOR EACH ROW
+BEGIN
+    INSERT INTO members_backup (columns)
+    VALUES (value1, value2, ..);
+END;
+//
+DELIMITER ;
+```
+트리거 목록을 출력해서 확인하거나 삭제하는 방법은 아래와 같다.
+```sql
+SHOW TRIGGERS;
+DROP TRIGGER trigger_name;
+```
 
 # PostgreSQL
 

@@ -13,6 +13,11 @@
 ![img](./img/nosql-type.png)
 참고 - https://learn.microsoft.com/ko-KR/azure/architecture/data-guide/big-data/non-relational-data
 
+Key-value: Redis, Memcached, AWS DynamoDB
+Document: MongoDB, CouchDB
+Graph: Neo4J
+Column Family: Cassandra, Hbase
+
 ### 문서 데이터 저장소
 문서형 데이터 저장소는 문서라고 하는 항목의 문자열 필드 및 개체 데이터값 집합을 관리한다. 일반적으로는 JSON 문서 형식이지만 그 외에도 XML, YAML, BSON 등을 포함해 다양한 방식으로 인코딩될 수 있다.   
 그렇다면 이 문서에 어떻게 애플리케이션이 접근할 수 있을까? 바로 문서 키를 이용해서 문서를 검색하는 것이다. 키는 문서의 고유 식별자로 일부 문서 데이터베이스는 자동으로 문서 키를 생성하는 시스템으로 이루어져 있다. 문서 키 외에도 하나 이상의 필드 값에 따라 문서를 쿼리할 수도 있다. 일부 문서 데이터베이스는 하나 이상의 인덱싱 필드를 기반으로 빠르게 조회할 수 있도록 인덱싱을 지원한다.    
