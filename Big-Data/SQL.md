@@ -208,6 +208,43 @@ DELIMITER ;
 SHOW TRIGGERS;
 DROP TRIGGER trigger_name;
 ```
+------------------------------------
 
 # PostgreSQL
+링크 - https://www.postgresql.org/about/
+## PostgreSQL이란?
+PostgreSQL은 오픈 소스 객체관계형 데이터베이스 시스템으로 20여년의 오랜 역사를 갖는 데 반해, 다른 관계형 데이터베이스 시스템과 달리 연산자, 복합 자료형, 집계 함수, 자료형 변환자, 확장 기능 등 다양한 객체를 사용자가 임의로 만들 수 있는 기능을 제공한다. **클라이언트/서버 모델**을 사용해 데이터베이스 파일들은 서버에 보관하여 클라이언트 애플리케이션에서 들어오는 요청과 연결을 수용해 클라이언트를 대신해서 데이터베이스 액션을 수행한다.
+
+![img](./img/postgresql.png)
+그림과 같은 구조로 이루어지며, 서버는 다중 클라이언트 연결을 처리할 수 있다. 먼저 서버로 클라이언트 연결 요청이 오고, 각 커넥션에 대해 새로운 프로세스를 fork 한다. 그리고 클라이언트는 기존 서버와 간섭없이 새로 생성된 서버 프로세스와 통신하게 된다.
+## PostgreSQL의 기능
+관계형 DBMS의 기본적인 기능인 트랜잭션과 ACID(Atomicity, Consistency, Isolation, Durability)을 지원한다. 기본적인 신뢰도와 안정성을 위한 기능 뿐 아니라 다양한 확장 기능도 많이 가지고 있는데, 주요 기능을 열거해보면 아래와 같다.
+- Nested transactions (savepoints)
+- Point in time recovery
+- Online/hot backups, parallel restore
+- Rules system (query rewrite system)
+- B-tree, R-tree, hash, GIST method indexes
+- Multi-Version Concurrency Control
+- Tablespaces
+- Procedural Language
+- Information Schema
+
+## PostgreSQL 특징
+* Portable
+PostgreSQL은 ANSI C로 개발되었으며 윈도우, 리눅스, 맥 OS, 유닉스 등 다양한 플랫폼을 지원한다.
+* Reliable
+트랜잭션 속성인 ACID에 대한 구현 및 MVCC, 로우 레벨 라킹 등이 구현되어있다.
+* Scalable
+멀티 버전에 대한 사용이 가능하며 대용량 데이터 처리를 위한 table partitioning과 table space 기능 구현이 가능하다.
+* Secure
+DB 보안은 데이터 암호화, 접근 제어, 감시 3가지로 구성되어 있다. 호스트 기반의 접근을 제어하고 object level 권한을 부여하며, SSL 통신을 통한 클라이언트와 네트워크 구간의 전송 데이터를 암호화하는 방식을 지원한다.
+* Recovery & Availability
+streaming replication을 기본으로 동기식/비동기식 hot standbt 서버를 구축 가능하다. WAL Log 아카이빙 및 Hot Back Up을 통해 point in time recovery가 가능하다.
+* Advanced
+pg_upgrade가 가능하며 웹 또는 c/s 기반의 gui 관리 도구를 제공해서 모니터링 및 관리, 튜닝까지 가능하다.
+
+
+## How to use PostgreSQL
+https://mangkyu.tistory.com/71
+https://aws.amazon.com/ko/compare/the-difference-between-mysql-vs-postgresql/
 
