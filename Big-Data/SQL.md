@@ -244,7 +244,39 @@ streaming replication을 기본으로 동기식/비동기식 hot standbt 서버�
 pg_upgrade가 가능하며 웹 또는 c/s 기반의 gui 관리 도구를 제공해서 모니터링 및 관리, 튜닝까지 가능하다.
 
 
-## How to use PostgreSQL
 https://mangkyu.tistory.com/71
 https://aws.amazon.com/ko/compare/the-difference-between-mysql-vs-postgresql/
+먼저 PostgreSQL 
 
+### Vacuum command
+Vacuum은 PostgreSQL에만 존재하는 고유 명령어로, 오래된 영역을 재사용 하거나 정리해주는 명령어이다. 기본적으로 MVCC 기법을 사용하기 때문에 특정 row를 추가하거나 수정할 경우, 해당 row를 물리적으로 업데이트하는 것이 아닌, 새로운 영역을 할당해서 사용한다. Update, Delete, Insert가 자주 일어나는 Database의 경우는 물리적인 저장 공간이 삭제되지 않고 남아있게 되므로, vacuum을 주기적으로 해주는 것이 좋다. vacuum은 어느 곳에서도 사용하지 않고 참조하지 않는 재사용 가능한 행을 찾아 FSM(Free Space Map)이라는 메모리 공간에 그 위치와 크기를 기록한다. 그리고 insert 문으로 새로운 행을 추가하는 경우에 FSM에서 적당한 크기의 행을 찾아 사용한다. 관련 옵션과 사용 방법은 다음과 같다.
+```
+vacuumdb [옵션] [DB이름]
+옵션들:
+-a, --all            				모든 데이터베이스 청소
+  -d, --dbname=DBNAME       			DBNAME 데이터베이스 청소
+  -e, --echo           				서버로 보내는 명령들을 보여줌
+  -f, --full           				대청소
+  -F, --freeze          			행 트랜잭션 정보 동결
+  -q, --quiet           			어떠한 메시지도 보여주지 않음
+  -t, --table='TABLE[(COLUMNS)]'		지정한 특정 테이블만 청소
+  -v, --verbose          			작업내역의 자세한 출력
+  -V, --version          			output version information, then exit
+  -z, --analyze          			update optimizer statistics
+  -Z, --analyze-only       			only update optimizer statistics
+  -?, --help           				show this help, then exit
+  
+  
+  
+  연결 옵션들:
+  -h, --host=HOSTNAME    			데이터베이스 서버 호스트 또는 소켓 디렉터리
+  -p, --port=PORT      				데이터베이스 서버 포트
+  -U, --username=USERNAME  			접속할 사용자이름
+  -w, --no-password     			암호 프롬프트 표시 안 함
+  -W, --password      				암호 프롬프트 표시함
+  --maintenance-db=DBNAME  			alternate maintenance database
+```
+
+또한 PostgreSQL 서버 실행할 때 postgresql.conf 파일을 참고하는데, 이 안에는 AUTOVAUCUUM PARAMETERS를 지정해서 사용할 수 있다.
+
+### PostgreSQL 사용법
